@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Empleados</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+  <form action="#" th:action="@{/empleados/guardar}" class="form-group" th:object=${empleado} method="POST">
+    <div class="card">
+      <div class="card-header">
+        <h2>Modulo empleado</h2>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label>ID</label>
+          <input type="text" class="form-control" th:field="*{id}" readonly>
+        </div>
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" class="form-control" th:field="*{nombres}" required>
+        </div>
+        <div class="form-group">
+          <label>Apellido</label>
+          <input type="text" class="form-control" th:field="*{apellidos}" required>
+        </div>
+        <div class="form-group">
+          <label>Rut</label>
+          <input type="text" class="form-control" th:field="*{rut}" placeholder="Sin puntos y con guión" required>
+        </div>
+        <div class="form-group">
+          <label>Fecha de ingreso</label>
+          <input type="date" class="form-control" th:field="*{fechaIngreso}" required>
+        </div>
+        <div class="form-group">
+          <label>Fecha de nacimiento</label>
+          <input type="date" class="form-control" th:field="*{fechaNacimiento}" required>
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select th:field="*{categoria}" class="form-control" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </select>
+        </div>
+      </div>
+      <div class="card-footer">
+        <input type="submit" value="Guardar" class="btn btn-success">
+        <a href="/empleados/listar" class="btn btn-primary" role="button">Volver</a>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
