@@ -7,18 +7,17 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "inasistencias")
+@Table(name = "marcas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InasistenciaEntity {
+public class MarcasEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    
-    private Long idEmpleado;
-    private String rut;
+
     private String fecha;
-    private Integer justificada = 0;
+    private String hora;
+    private String rut;
 }

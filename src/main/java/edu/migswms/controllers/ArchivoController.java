@@ -24,8 +24,8 @@ public class ArchivoController {
 	@PostMapping("/cargar")
 	public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
 		upload.saveData(file);
-		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente2");
-		return "redirect:/";
+		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
+		return "redirect:/upload";
 	}
 
 }

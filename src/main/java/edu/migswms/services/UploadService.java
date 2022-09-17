@@ -29,6 +29,36 @@ public class UploadService {
 		}
 		return "Archivo guardado correctamente1";
 	}
+
+	public String saveJustificativo(MultipartFile file) {
+        String folder="archives/justificativos//";
+		if (!file.isEmpty()) {
+			try {
+				byte [] bytes= file.getBytes();
+				Path path = Paths.get( folder+file.getOriginalFilename() );
+				Files.write(path, bytes);				
+				logg.info("Archivo guardado");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "Archivo guardado correctamente1";
+	}
 	
-	
+	public String saveAutorizacion(MultipartFile file) {
+		String folder="archives/autorizaciones//";
+		if (!file.isEmpty()) {
+			try {
+				byte [] bytes= file.getBytes();
+				Path path = Paths.get( folder+file.getOriginalFilename() );
+				Files.write(path, bytes);				
+				logg.info("Archivo guardado");
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "Archivo guardado correctamente1";
+	}
 }

@@ -26,13 +26,13 @@ import java.util.Optional;
                 ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
                 System.out.println(empleados);
                 model.addAttribute("empleados",empleados);
-                return "listar";
+                return "empleado/listar";
             }
 
             @GetMapping("/nuevo")
             public String nuevo(Model model){
                 model.addAttribute("empleado",new EmpleadoEntity());
-                return "form";
+                return "empleado/form";
             }
 
             @PostMapping("/guardar")
@@ -45,7 +45,7 @@ import java.util.Optional;
             public String editar(@PathVariable long id, Model model){
                 Optional<EmpleadoEntity> empleado=empleadoService.obtenerPorId(id);
                 model.addAttribute("empleado",empleado);
-                return "form";
+                return "empleado/form";
 
             }
 

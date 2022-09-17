@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "inasistencias")
+@Table(name = "horas_extras")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class InasistenciaEntity {
+public class HoraExtraEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    
+
     private Long idEmpleado;
     private String rut;
     private String fecha;
-    private Integer justificada = 0;
+    private Integer cantidadHoras;
+    private Integer autorizada = 0;
 }

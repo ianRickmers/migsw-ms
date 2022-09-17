@@ -15,9 +15,9 @@
 <body>
   <div th:replace="fragments/navbar :: navbar"></div>
   <div class="container p-5 mx-auto">
-    <h1>Carga de datos de tiempo de reloj</h1>
+    <h1>Carga de justificativos</h1>
     <p></p>
-    <form th:action="@{/cargar}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/inasistencias/cargar}" method="post" enctype="multipart/form-data">
       <input type="file" class="form-control" name="archivos">
       <p></p>
       <input type="submit" class="btn btn-primary" value="Cargar archivo">
