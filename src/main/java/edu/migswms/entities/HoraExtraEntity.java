@@ -19,7 +19,6 @@ public class HoraExtraEntity {
 
     private Long idEmpleado;
     private String rut;
-    private String fecha;
     private Integer cantidadHoras;
     private Integer autorizada = 0;
 }

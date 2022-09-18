@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Marcas</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
@@ -9,30 +10,27 @@
 <div class="container-sm">
     <div class="card">
         <div class="card-header">
-            <h2>Inasistencias</h2>
-            <a class="btn btn-primary" href="/inasistencias/nuevo" role="button">Crear</a>
-            <a th:href="@{/inasistencias/upload}" class="btn btn-primary" role="button">Agregar Justificativo</a>
+            <h2>Marcas</h2>
         </div>
         <div class="card-body">
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Rut Empleado</th>
                     <th>Fecha</th>
-                    <th>Justificada</th>
+                    <th>Hora</th>
+                    <th>Minutos</th>
+                    <th>Rut</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="inasistencia:${inasistencias}">
-                    <td th:text="${inasistencia.id}"></td>
-                    <td th:text="${inasistencia.rut}"></td>
-                    <td th:text="${inasistencia.fecha}"></td>
-                    <td th:text="${inasistencia.justificada}"></td>
-                    <td>
-                        <a th:href="@{/inasistencias/editar/{id}(id = ${inasistencia.id})}" class="btn btn-primary" role="button">Editar</a>
-                        <a th:href="@{/inasistencias/eliminar/{id}(id = ${inasistencia.id})}" class="btn btn-danger" role="button">Eliminar</a>
-                    </td>
+                <tr th:each="marca:${marcas}">
+                    <td th:text="${marca.id}"></td>
+                    <td th:text="${marca.fecha}"></td>
+                    <td th:text="${marca.hora}"></td>
+                    <td th:text="${marca.minuto}"></td>
+                    <td th:text="${marca.rut}"></td>
                 </tr>
                 </tbody>
             </table>

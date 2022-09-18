@@ -1,11 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Recursos Humanos</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
+
 <body>
-<div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="fragments/navbar :: navbar"></div>
+    <div class="container">
+        <div class="row">
+            <a class="btn btn-primary" aria-current="page" href="/upload" type="button">Cargar archivo con datos de reloj</a>
+            <a class="btn btn-primary" th:href="@{/marcas/upload/}" type="button">Subir marcas de reloj a la base de datos</a>
+            <h3 th:text="${mensaje}"></h3>
+            <a class="btn btn-primary" type="button">Calcular inasistencias </a>
+        </div>
+    </div>
 </body>
+
 </html>

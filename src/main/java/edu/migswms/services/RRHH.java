@@ -5,7 +5,6 @@ import edu.migswms.entities.EmpleadoEntity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class RRHH {
 

@@ -17,7 +17,6 @@ public class InasistenciaEntity {
     @Column(unique = true, nullable = false)
     private Long id;
     
-    private Long idEmpleado;
     private String rut;
     private String fecha;
     private Integer justificada = 0;

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarcasEntity {
+public class MarcaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -19,5 +19,6 @@ public class MarcasEntity {
 
     private String fecha;
     private String hora;
+    private String minuto;
     private String rut;
 }

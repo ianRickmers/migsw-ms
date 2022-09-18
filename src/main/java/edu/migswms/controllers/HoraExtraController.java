@@ -62,7 +62,7 @@ public class HoraExtraController {
         return "redirect:/horas_extras/listar";
     }
 
-    @PostMapping("/upload")
+    @GetMapping("/upload")
     public String home() {
 		return "hora_extra/upload";
 	}
@@ -71,6 +71,6 @@ public class HoraExtraController {
     public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
 		upload.saveAutorizacion(file);
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
-		return "redirect:/inasistencia/upload";
+		return "redirect:/hora_extra/upload";
 	}
 }
