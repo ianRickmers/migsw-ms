@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HoraExtraRepository extends JpaRepository<HoraExtraEntity, Long> {
+    public HoraExtraEntity findByRut(String rut);
 }

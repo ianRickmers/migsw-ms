@@ -34,4 +34,12 @@ public class EmpleadoService {
         }
     }
 
+    public void cambiarCategoria(Long id, String categoria){
+        Optional<EmpleadoEntity> empleado = empleadoRepository.findById(id);
+        if(empleado.isPresent()){
+            EmpleadoEntity empleadoEntity = empleado.get();
+            empleadoEntity.setCategoria(categoria);
+            empleadoRepository.save(empleadoEntity);
+        }
+    }
 }

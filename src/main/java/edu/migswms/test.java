@@ -1,4 +1,4 @@
-package edu.migswms;
+/* package edu.migswms;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,3 +17,4 @@ public class test {
         System.out.println(data);
         }
     }
+ */

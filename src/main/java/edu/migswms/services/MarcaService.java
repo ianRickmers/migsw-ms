@@ -40,6 +40,9 @@ public class MarcaService {
         }
     }
 
+    public ArrayList<MarcaEntity> obtenerMarcaPorRut(String rut){
+        return marcasRepository.findByRutCustomQuery(rut);
+    }
 /*     public ArrayList<MarcasEntity> obtenerMarcasPorNombre(String nombre){
         return marcasRepository.findByRut(rut);
     } */
