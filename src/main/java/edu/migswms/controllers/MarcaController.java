@@ -36,7 +36,6 @@ public class MarcaController {
     @GetMapping("/listar")
     public String listar(Model model){
         List<MarcaEntity>marcas=marcaService.obtenerMarca();
-        System.out.println(marcas);
         model.addAttribute("marcas",marcas);
         return "marca/listar";
     }

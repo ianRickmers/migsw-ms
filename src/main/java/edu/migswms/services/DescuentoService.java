@@ -12,7 +12,6 @@ import java.util.Optional;
 public class DescuentoService {
     @Autowired
     DescuentoRepository descuentoRepository;
-
     public ArrayList<DescuentoEntity> obtenerDescuentos(){
         return (ArrayList<DescuentoEntity>) descuentoRepository.findAll();
     }
@@ -25,6 +24,12 @@ public class DescuentoService {
         return descuentoRepository.findByRut(rut);
     }
 
+    public void reset(DescuentoEntity descuentoEntity){
+        descuentoEntity.setDesc10(0);
+        descuentoEntity.setDesc25(0);
+        descuentoEntity.setDesc45(0);
+    }
+    
     public void cambiarDesc10(String rut){
         Optional<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
         if(descuento.isPresent()){
@@ -59,11 +64,12 @@ public class DescuentoService {
             descuentoRepository.save(descuentoEntity);
         }
         else{
-            DescuentoEntity descuentoEntity = new DescuentoEntity(null,rut,1,0,0);
+            DescuentoEntity descuentoEntity = new DescuentoEntity(null,rut,0,0,1);
             descuentoRepository.save(descuentoEntity);
         }
     }
 
+    //Para hacer los test unitarios cambiar a retorno del descuento cambiado
     public void cambiarDescuentos(Integer marcaHora, Integer marcaMinuto, String rut){
         if(marcaHora==8 && marcaMinuto>10 && marcaMinuto<=25){
             cambiarDesc10(rut);

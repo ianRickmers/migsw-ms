@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class RRHH {
+public class RRHHService {
 
     /* 
     public List<EmpleadoEntity> leerArchivo() {

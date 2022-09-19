@@ -12,7 +12,8 @@ import java.util.Optional;
 public class HoraExtraService {
     @Autowired
     HoraExtraRepository horaExtraRepository;
-
+    Integer horaSalida=18;
+    
     public ArrayList<HoraExtraEntity> obtenerHorasExtras(){
         return (ArrayList<HoraExtraEntity>) horaExtraRepository.findAll();
     }
@@ -34,4 +35,27 @@ public class HoraExtraService {
         }
     }
 
+    public void cambiarHoras(String rut,Integer marcaHora, Integer marcaMinuto){
+        Optional<HoraExtraEntity> horaExtra = horaExtraRepository.findByRut(rut);
+        marcaHora=marcaHora-horaSalida;
+        if(horaExtra.isPresent()){
+            HoraExtraEntity horaExtraEntity = horaExtra.get();
+            horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+marcaHora);
+            horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()+marcaMinuto);
+            horaExtraRepository.save(horaExtraEntity);
+        }
+        else{
+            HoraExtraEntity descuentoEntity = new HoraExtraEntity(null,rut,marcaHora,marcaMinuto,0);
+            horaExtraRepository.save(descuentoEntity);
+        }
+    }
+    
+    public void cambiarHorasExtra(Integer marcaHora, Integer marcaMinuto, String rut){
+        if(marcaHora==horaSalida && marcaMinuto>0){
+            cambiarHoras(rut,marcaHora,marcaMinuto);
+        }
+        if(marcaHora<horaSalida){
+            cambiarHoras(rut,marcaHora,marcaMinuto);
+        }
+    }
 }

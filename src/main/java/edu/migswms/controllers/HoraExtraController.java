@@ -3,6 +3,10 @@ package edu.migswms.controllers;
 import edu.migswms.entities.HoraExtraEntity;
 import edu.migswms.services.HoraExtraService;
 import edu.migswms.services.UploadService;
+import edu.migswms.entities.EmpleadoEntity;
+import edu.migswms.entities.MarcaEntity;
+import edu.migswms.services.EmpleadoService;
+import edu.migswms.services.MarcaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/horas_extras")
 public class HoraExtraController {
-    
+
     @Autowired
     HoraExtraService horaExtraService;
+
+    @Autowired
+    EmpleadoService empleadoService;
+
+    @Autowired
+    MarcaService marcaService;
 
     @Autowired
     private UploadService upload;
@@ -73,4 +84,20 @@ public class HoraExtraController {
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
 		return "redirect:/hora_extra/upload";
 	}
+
+    @GetMapping("/calcular")
+    public String calcularDescuentos(){
+        ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
+        for(EmpleadoEntity empleado:empleados){
+            String rut=empleado.getRut();
+            ArrayList<MarcaEntity>marcasRut=marcaService.obtenerMarcaPorRut(rut);
+            int n = marcasRut.size();
+            for(int i=1;i<n;i+=2){
+                int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
+                int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
+                horaExtraService.cambiarHorasExtra(marcaHora, marcaMinuto,rut);
+                }
+            }
+        return("redirect:/");
+    }
 }

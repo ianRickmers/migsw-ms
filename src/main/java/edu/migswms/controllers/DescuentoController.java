@@ -1,5 +1,6 @@
 package edu.migswms.controllers;
 
+import edu.migswms.entities.DescuentoEntity;
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.entities.MarcaEntity;
 import edu.migswms.services.DescuentoService;
@@ -9,6 +10,7 @@ import edu.migswms.services.MarcaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,9 +43,18 @@ public class DescuentoController {
                 int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
                 int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
                 descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,rut);
-                inasistenciaService.crearInasistencia( marcaHora, marcaMinuto, rut, (marcasRut.get(i)));
+                if(inasistenciaService.existe(rut, (marcasRut.get(i)).getFecha()))
+                    inasistenciaService.crearInasistencia( marcaHora, marcaMinuto, rut, (marcasRut.get(i)));
                 }
             }
         return("redirect:/");
-    } 
+    }
+    
+    @GetMapping("/listar")
+        public String listar(Model model){
+            ArrayList<DescuentoEntity>descuentos=descuentoService.obtenerDescuentos();
+            model.addAttribute("descuentos",descuentos);
+
+            return "descuento/listar";
+    }
 }

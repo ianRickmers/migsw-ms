@@ -18,6 +18,15 @@ public class InasistenciaService {
         return (ArrayList<InasistenciaEntity>) inasistenciaRepository.findAll();
     }
 
+    public Boolean existe(String rut, String fecha){
+        if (inasistenciaRepository.countByRutAndDate(rut,fecha)==0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
     public InasistenciaEntity guardarInasistencia(InasistenciaEntity inasistencia){
         return inasistenciaRepository.save(inasistencia);
     }
