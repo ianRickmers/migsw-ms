@@ -42,7 +42,6 @@ public class HoraExtraController {
     @GetMapping("/listar")
     public String listar(Model model){
         List<HoraExtraEntity>horasExtras=horaExtraService.obtenerHorasExtras();
-        System.out.println(horasExtras);
         model.addAttribute("horasExtras",horasExtras);
         return "hora_extra/listar";
     }
@@ -87,6 +86,7 @@ public class HoraExtraController {
 
     @GetMapping("/calcular")
     public String calcularDescuentos(){
+        horaExtraService.resetearHorasExtras();
         ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
         for(EmpleadoEntity empleado:empleados){
             String rut=empleado.getRut();

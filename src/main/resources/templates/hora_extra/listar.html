@@ -21,6 +21,7 @@
                     <th>ID</th>
                     <th>Rut empleado</th>
                     <th>Cantidad horas</th>
+                    <th>Cantidad Minutos</th>
                     <th>Autorizadas</th>
                 </tr>
                 </thead>
@@ -29,6 +30,7 @@
                     <td th:text="${horaExtra.id}"></td>
                     <td th:text="${horaExtra.rut}"></td>
                     <td th:text="${horaExtra.cantidadHoras}"></td>
+                    <td th:text="${horaExtra.cantidadMinutos}"></td>
                     <td th:text="${horaExtra.autorizada}"></td>
                     <td>
                         <a th:href="@{/horas_extras/editar/{id}(id = ${horaExtra.id})}" class="btn btn-primary" role="button">Editar</a>

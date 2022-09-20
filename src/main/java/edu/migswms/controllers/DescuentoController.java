@@ -34,6 +34,7 @@ public class DescuentoController {
 
     @GetMapping("/upload")
     public String calcularDescuentos(){
+        descuentoService.resetearDescuentos();
         ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
         for(EmpleadoEntity empleado:empleados){
             String rut=empleado.getRut();
@@ -43,7 +44,7 @@ public class DescuentoController {
                 int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
                 int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
                 descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,rut);
-                if(inasistenciaService.existe(rut, (marcasRut.get(i)).getFecha()))
+                if(!inasistenciaService.existe(rut, (marcasRut.get(i)).getFecha()))
                     inasistenciaService.crearInasistencia( marcaHora, marcaMinuto, rut, (marcasRut.get(i)));
                 }
             }

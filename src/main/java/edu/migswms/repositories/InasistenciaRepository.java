@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface InasistenciaRepository extends JpaRepository<InasistenciaEntity, Long> {
-    @Query(value="select count i from InasistenciaEntity i where i.rut = :rut and i.fecha = :fecha",
+    @Query(value="select count(*) from inasistencias as i where i.rut = :rut and i.fecha = :fecha",
             nativeQuery = true)
     Integer countByRutAndDate(@Param("rut") String rut, @Param("fecha") String fecha);
 
-    @Query(value="select count i from InasistenciaEntity i where i.rut = :rut and i.justificada = 0",
+    @Query(value="select count(*) from inasistencias as i where i.rut = :rut and i.justificada = 0",
             nativeQuery = true)
     ArrayList<InasistenciaEntity> countInasistencias(@Param("rut") String rut);
 } 

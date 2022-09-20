@@ -12,6 +12,7 @@ import java.util.Optional;
 public class DescuentoService {
     @Autowired
     DescuentoRepository descuentoRepository;
+
     public ArrayList<DescuentoEntity> obtenerDescuentos(){
         return (ArrayList<DescuentoEntity>) descuentoRepository.findAll();
     }
@@ -24,10 +25,8 @@ public class DescuentoService {
         return descuentoRepository.findByRut(rut);
     }
 
-    public void reset(DescuentoEntity descuentoEntity){
-        descuentoEntity.setDesc10(0);
-        descuentoEntity.setDesc25(0);
-        descuentoEntity.setDesc45(0);
+    public void resetearDescuentos(){
+        descuentoRepository.deleteAll();
     }
     
     public void cambiarDesc10(String rut){

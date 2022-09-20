@@ -34,7 +34,10 @@ public class HoraExtraService {
             return false;
         }
     }
-
+    public void resetearHorasExtras(){
+        horaExtraRepository.deleteAll();
+    }
+    
     public void cambiarHoras(String rut,Integer marcaHora, Integer marcaMinuto){
         Optional<HoraExtraEntity> horaExtra = horaExtraRepository.findByRut(rut);
         marcaHora=marcaHora-horaSalida;
@@ -42,6 +45,10 @@ public class HoraExtraService {
             HoraExtraEntity horaExtraEntity = horaExtra.get();
             horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+marcaHora);
             horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()+marcaMinuto);
+            if(horaExtraEntity.getCantidadMinutos()>=60){
+                horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+1);
+                horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()-60);
+            }
             horaExtraRepository.save(horaExtraEntity);
         }
         else{
@@ -54,7 +61,7 @@ public class HoraExtraService {
         if(marcaHora==horaSalida && marcaMinuto>0){
             cambiarHoras(rut,marcaHora,marcaMinuto);
         }
-        if(marcaHora<horaSalida){
+        if(marcaHora>horaSalida){
             cambiarHoras(rut,marcaHora,marcaMinuto);
         }
     }

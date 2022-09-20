@@ -31,7 +31,6 @@ public class InasistenciaController {
     @GetMapping("/listar")
     public String listar(Model model){
         ArrayList<InasistenciaEntity>inasistencias=inasistenciaService.obtenerInasistencias();
-        System.out.println(inasistencias);
         model.addAttribute("inasistencias",inasistencias);
         return "inasistencia/listar";
     }
