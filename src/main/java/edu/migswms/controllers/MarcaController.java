@@ -25,6 +25,7 @@ public class MarcaController {
     @GetMapping("/upload")
     public String upload(RedirectAttributes ms) throws FileNotFoundException, IOException {
         try {
+            marcaService.resetearMarcas();
             marcaService.obtenerMarcas();
             ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
             return "redirect:/";

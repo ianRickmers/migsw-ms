@@ -26,6 +26,11 @@ public class HoraExtraService {
         return horaExtraRepository.findById(id);
     }
 
+    //obtenerPorRut
+    public ArrayList<HoraExtraEntity> obtenerPorRut(String rut){
+        return horaExtraRepository.findByRut(rut);
+    }
+
     public boolean eliminarHoraExtra(Long id) {
         try{
             horaExtraRepository.deleteById(id);
@@ -39,10 +44,10 @@ public class HoraExtraService {
     }
     
     public void cambiarHoras(String rut,Integer marcaHora, Integer marcaMinuto){
-        Optional<HoraExtraEntity> horaExtra = horaExtraRepository.findByRut(rut);
+        ArrayList<HoraExtraEntity> horaExtra = horaExtraRepository.findByRut(rut);
         marcaHora=marcaHora-horaSalida;
-        if(horaExtra.isPresent()){
-            HoraExtraEntity horaExtraEntity = horaExtra.get();
+        if(horaExtra.size()!=0){
+            HoraExtraEntity horaExtraEntity = horaExtra.get(0);
             horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+marcaHora);
             horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()+marcaMinuto);
             if(horaExtraEntity.getCantidadMinutos()>=60){

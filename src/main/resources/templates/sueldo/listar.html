@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body >
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container-sm">
+    <div class="card">
+        <div class="card-header">
+            <h2>Sueldos</h2>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Rut Empleado</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Años de servicio</th>
+                    <th>Sueldo Fijo</th>
+                    <th>Bonificación por años de servicio</th>
+                    <th>Monto de bonificación por horas extra</th>
+                    <th>Monto de descuentos por atraso e inasistencias</th>
+                    <th>Sueldo sueldoBruto</th>
+                    <th>Monto de cotización provisional</th>
+                    <th>Monto de cotización de salud</th>
+                    <th>Sueldo final líquido</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sueldo:${sueldos}">
+                    <td th:text="${sueldo.id}"></td>
+                    <td th:text="${sueldo.rut}"></td>
+                    <td th:text="${sueldo.nombres}"></td>
+                    <td th:text="${sueldo.apellidos}"></td>
+                    <td th:text="${sueldo.anosServicio}"></td>
+                    <td th:text="${sueldo.sueldoFijo}"></td>
+                    <td th:text="${sueldo.bonificacionAnosServicio}"></td>
+                    <td th:text="${sueldo.montoHorasExtra}"></td>
+                    <td th:text="${sueldo.montoDescuentos}"></td>
+                    <td th:text="${sueldo.sueldoBruto}"></td>
+                    <td th:text="${sueldo.cotizacionPrevisional}"></td>
+                    <td th:text="${sueldo.cotizacionSalud}"></td>
+                    <td th:text="${sueldo.montoFinal}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            <a href="/" class="btn btn-primary" role="button">Volver</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

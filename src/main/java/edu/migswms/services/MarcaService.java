@@ -42,7 +42,9 @@ public class MarcaService {
             return false;
         }
     }
-
+    public void resetearMarcas(){
+        marcasRepository.deleteAll();
+    }
     public ArrayList<MarcaEntity> obtenerMarcaPorRut(String rut){
         return marcasRepository.findByRutCustomQuery(rut);
     }

@@ -2,8 +2,6 @@ package edu.migswms.repositories;
 
 import edu.migswms.entities.InasistenciaEntity;
 
-import java.util.ArrayList;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +15,5 @@ public interface InasistenciaRepository extends JpaRepository<InasistenciaEntity
 
     @Query(value="select count(*) from inasistencias as i where i.rut = :rut and i.justificada = 0",
             nativeQuery = true)
-    ArrayList<InasistenciaEntity> countInasistencias(@Param("rut") String rut);
+    Integer countInasistencias(@Param("rut") String rut);
 } 

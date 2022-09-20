@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class DescuentoService {
@@ -21,7 +20,7 @@ public class DescuentoService {
         return descuentoRepository.save(descuento);
     }
 
-    public Optional<DescuentoEntity> obtenerPorRut(String rut){
+    public ArrayList<DescuentoEntity> obtenerPorRut(String rut){
         return descuentoRepository.findByRut(rut);
     }
 
@@ -30,9 +29,9 @@ public class DescuentoService {
     }
     
     public void cambiarDesc10(String rut){
-        Optional<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.isPresent()){
-            DescuentoEntity descuentoEntity = descuento.get();
+        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
+        if(descuento.size()!=0){
+            DescuentoEntity descuentoEntity = descuento.get(0);
             descuentoEntity.setDesc10(descuentoEntity.getDesc10()+1);
             descuentoRepository.save(descuentoEntity);
         }
@@ -43,9 +42,9 @@ public class DescuentoService {
     }
 
     public void cambiarDesc25(String rut){
-        Optional<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.isPresent()){
-            DescuentoEntity descuentoEntity = descuento.get();
+        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
+        if(descuento.size()!=0){
+            DescuentoEntity descuentoEntity = descuento.get(0);
             descuentoEntity.setDesc25(descuentoEntity.getDesc25()+1);
             descuentoRepository.save(descuentoEntity);
         }
@@ -56,9 +55,9 @@ public class DescuentoService {
     }
 
     public void cambiarDesc45(String rut){
-        Optional<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.isPresent()){
-            DescuentoEntity descuentoEntity = descuento.get();
+        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
+        if(descuento.size()!=0){
+            DescuentoEntity descuentoEntity = descuento.get(0);
             descuentoEntity.setDesc45(descuentoEntity.getDesc45()+1);
             descuentoRepository.save(descuentoEntity);
         }

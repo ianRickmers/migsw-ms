@@ -2,12 +2,12 @@ package edu.migswms.repositories;
 
 import edu.migswms.entities.HoraExtraEntity;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HoraExtraRepository extends JpaRepository<HoraExtraEntity, Long> {
-    public Optional<HoraExtraEntity> findByRut(String rut);
+    public ArrayList<HoraExtraEntity> findByRut(String rut);
 }

@@ -11,9 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MarcaRepository extends JpaRepository<MarcaEntity, Long> {
-    //findallbyrut
-    /* @Query("SELECT m FROM MarcaEntity m WHERE m.rut = :rut")
-    public ArrayList<MarcaEntity> findAllByRut(@Param("rut") String rut); */
+
     @Query("SELECT m from MarcaEntity m WHERE m.rut = :rut")
     ArrayList<MarcaEntity> findByRutCustomQuery(@Param("rut") String rut);
 }
