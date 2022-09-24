@@ -27,7 +27,7 @@ public class UploadService {
 				e.printStackTrace();
 			}
 		}
-		return "Archivo guardado correctamente1";
+		return "Archivo guardado correctamente";
 	}
 
 	public String saveJustificativo(MultipartFile file) {
@@ -43,7 +43,7 @@ public class UploadService {
 				e.printStackTrace();
 			}
 		}
-		return "Archivo guardado correctamente1";
+		return "Archivo guardado correctamente";
 	}
 	
 	public String saveAutorizacion(MultipartFile file) {
@@ -59,6 +59,6 @@ public class UploadService {
 				e.printStackTrace();
 			}
 		}
-		return "Archivo guardado correctamente1";
+		return "Archivo guardado correctamente";
 	}
 }

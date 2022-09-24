@@ -1,7 +1,7 @@
 package edu.migswms.controllers;
 
 import edu.migswms.entities.InasistenciaEntity;
-import edu.migswms.services.InasistenciaService;
+import edu.migswms.repositories.InasistenciaRepository;
 import edu.migswms.services.UploadService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +23,14 @@ import java.util.Optional;
 public class InasistenciaController {
     
     @Autowired
-    InasistenciaService inasistenciaService;
+    InasistenciaRepository inasistenciaRepository;
 
     @Autowired
 	private UploadService upload;
     
     @GetMapping("/listar")
     public String listar(Model model){
-        ArrayList<InasistenciaEntity>inasistencias=inasistenciaService.obtenerInasistencias();
+        ArrayList<InasistenciaEntity>inasistencias=(ArrayList<InasistenciaEntity>) inasistenciaRepository.findAll();
         model.addAttribute("inasistencias",inasistencias);
         return "inasistencia/listar";
     }
@@ -43,13 +43,13 @@ public class InasistenciaController {
 
     @PostMapping("/guardar")
     public String crear(InasistenciaEntity inasistencia){
-        inasistenciaService.guardarInasistencia(inasistencia);
+        inasistenciaRepository.save(inasistencia);
         return "redirect:/inasistencias/listar";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable long id, Model model){
-        Optional<InasistenciaEntity> inasistencia=inasistenciaService.obtenerPorId(id);
+        Optional<InasistenciaEntity> inasistencia=inasistenciaRepository.findById(id);
         model.addAttribute("inasistencia",inasistencia);
         return "inasistencia/form";
 
@@ -57,7 +57,7 @@ public class InasistenciaController {
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable long id){
-        inasistenciaService.eliminarInasistencia(id);
+        inasistenciaRepository.deleteById(id);
         return "redirect:/inasistencias/listar";
     }
 	

@@ -2,7 +2,7 @@ package edu.migswms.controllers;
 
 
 import edu.migswms.entities.EmpleadoEntity;
-import edu.migswms.services.EmpleadoService;
+import edu.migswms.repositories.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +19,11 @@ import java.util.Optional;
         public class EmpleadoController {
 
             @Autowired
-            EmpleadoService empleadoService;
+            EmpleadoRepository empleadoRepository;
 
             @GetMapping("/listar")
             public String listar(Model model){
-                ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
+                ArrayList<EmpleadoEntity>empleados=(ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
                 model.addAttribute("empleados",empleados);
                 return "empleado/listar";
             }
@@ -36,21 +36,20 @@ import java.util.Optional;
 
             @PostMapping("/guardar")
             public String crear(EmpleadoEntity empleado){
-                empleadoService.guardarEmpleado(empleado);
+                empleadoRepository.save(empleado);
                 return "redirect:/empleados/listar";
             }
 
             @GetMapping("/editar/{id}")
             public String editar(@PathVariable long id, Model model){
-                Optional<EmpleadoEntity> empleado=empleadoService.obtenerPorId(id);
+                Optional<EmpleadoEntity> empleado=empleadoRepository.findById(id);
                 model.addAttribute("empleado",empleado);
                 return "empleado/form";
-
             }
 
             @GetMapping("/eliminar/{id}")
             public String eliminar(@PathVariable long id){
-                empleadoService.eliminarEmpleado(id);
+                empleadoRepository.deleteById(id);
                 return "redirect:/empleados/listar";
             }
         }

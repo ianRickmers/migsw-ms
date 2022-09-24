@@ -1,85 +1,44 @@
 package edu.migswms.services;
 
 import edu.migswms.entities.DescuentoEntity;
-import edu.migswms.repositories.DescuentoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 @Service
 public class DescuentoService {
-    @Autowired
-    DescuentoRepository descuentoRepository;
-
-    public ArrayList<DescuentoEntity> obtenerDescuentos(){
-        return (ArrayList<DescuentoEntity>) descuentoRepository.findAll();
-    }
-
-    public DescuentoEntity guardarDescuento(DescuentoEntity descuento){
-        return descuentoRepository.save(descuento);
-    }
-
-    public ArrayList<DescuentoEntity> obtenerPorRut(String rut){
-        return descuentoRepository.findByRut(rut);
-    }
-
-    public void resetearDescuentos(){
-        descuentoRepository.deleteAll();
-    }
     
-    public void cambiarDesc10(String rut){
-        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.size()!=0){
-            DescuentoEntity descuentoEntity = descuento.get(0);
-            descuentoEntity.setDesc10(descuentoEntity.getDesc10()+1);
-            descuentoRepository.save(descuentoEntity);
-        }
-        else{
-            DescuentoEntity descuentoEntity = new DescuentoEntity(null,rut,0,1,0);
-            descuentoRepository.save(descuentoEntity);
-        }
+    public DescuentoEntity cambiarDesc10(DescuentoEntity descuento){
+        descuento.setDesc10(descuento.getDesc10()+1);
+        return descuento;
     }
 
-    public void cambiarDesc25(String rut){
-        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.size()!=0){
-            DescuentoEntity descuentoEntity = descuento.get(0);
-            descuentoEntity.setDesc25(descuentoEntity.getDesc25()+1);
-            descuentoRepository.save(descuentoEntity);
-        }
-        else{
-            DescuentoEntity descuentoEntity = new DescuentoEntity(null,rut,0,0,1);
-            descuentoRepository.save(descuentoEntity);
-        }
+    public DescuentoEntity cambiarDesc25(DescuentoEntity descuento){
+        descuento.setDesc25(descuento.getDesc25()+1);
+        return descuento;
     }
 
-    public void cambiarDesc45(String rut){
-        ArrayList<DescuentoEntity> descuento = descuentoRepository.findByRut(rut);
-        if(descuento.size()!=0){
-            DescuentoEntity descuentoEntity = descuento.get(0);
-            descuentoEntity.setDesc45(descuentoEntity.getDesc45()+1);
-            descuentoRepository.save(descuentoEntity);
-        }
-        else{
-            DescuentoEntity descuentoEntity = new DescuentoEntity(null,rut,0,0,1);
-            descuentoRepository.save(descuentoEntity);
-        }
+    public DescuentoEntity cambiarDesc45(DescuentoEntity descuento){
+        descuento.setDesc45(descuento.getDesc45()+1);
+        return descuento;
     }
 
     //Para hacer los test unitarios cambiar a retorno del descuento cambiado
-    public void cambiarDescuentos(Integer marcaHora, Integer marcaMinuto, String rut){
+    public DescuentoEntity cambiarDescuentos(Integer marcaHora, Integer marcaMinuto, DescuentoEntity descuento){
         if(marcaHora==8 && marcaMinuto>10 && marcaMinuto<=25){
-            cambiarDesc10(rut);
+            cambiarDesc10(descuento);
+            return descuento;
         }
         if(marcaHora==8 && marcaMinuto>25 && marcaMinuto<=45){
-            cambiarDesc25(rut);
+            cambiarDesc25(descuento);
+            return descuento;
         }
         if(marcaHora==8 && marcaMinuto>45 && marcaMinuto<=59){
-            cambiarDesc45(rut);
+            cambiarDesc45(descuento);
+            return descuento;
         }
         if(marcaHora==9 && marcaMinuto>=0 && marcaMinuto<=10){
-            cambiarDesc45(rut);
+            cambiarDesc45(descuento);
+            return descuento;
         }
+        return descuento;
     }
 }

@@ -5,69 +5,32 @@ import edu.migswms.repositories.HoraExtraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 @Service
 public class HoraExtraService {
     @Autowired
     HoraExtraRepository horaExtraRepository;
     Integer horaSalida=18;
     
-    public ArrayList<HoraExtraEntity> obtenerHorasExtras(){
-        return (ArrayList<HoraExtraEntity>) horaExtraRepository.findAll();
-    }
-
-    public HoraExtraEntity guardarHoraExtra(HoraExtraEntity horaExtra){
-        return horaExtraRepository.save(horaExtra);
-    }
-
-    public Optional<HoraExtraEntity> obtenerPorId(Long id){
-        return horaExtraRepository.findById(id);
-    }
-
-    //obtenerPorRut
-    public ArrayList<HoraExtraEntity> obtenerPorRut(String rut){
-        return horaExtraRepository.findByRut(rut);
-    }
-
-    public boolean eliminarHoraExtra(Long id) {
-        try{
-            horaExtraRepository.deleteById(id);
-            return true;
-        }catch(Exception err){
-            return false;
+    public HoraExtraEntity cambiarHoras(HoraExtraEntity horaExtra,Integer marcaHora, Integer marcaMinuto){
+        marcaHora = marcaHora - horaSalida;
+        horaExtra.setCantidadHoras(horaExtra.getCantidadHoras() + marcaHora);
+        horaExtra.setCantidadMinutos(horaExtra.getCantidadMinutos() + marcaMinuto);
+        if (horaExtra.getCantidadMinutos() >= 60) {
+            horaExtra.setCantidadHoras(horaExtra.getCantidadHoras() + 1);
+            horaExtra.setCantidadMinutos(horaExtra.getCantidadMinutos() - 60);
         }
-    }
-    public void resetearHorasExtras(){
-        horaExtraRepository.deleteAll();
+        return horaExtra;
     }
     
-    public void cambiarHoras(String rut,Integer marcaHora, Integer marcaMinuto){
-        ArrayList<HoraExtraEntity> horaExtra = horaExtraRepository.findByRut(rut);
-        marcaHora=marcaHora-horaSalida;
-        if(horaExtra.size()!=0){
-            HoraExtraEntity horaExtraEntity = horaExtra.get(0);
-            horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+marcaHora);
-            horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()+marcaMinuto);
-            if(horaExtraEntity.getCantidadMinutos()>=60){
-                horaExtraEntity.setCantidadHoras(horaExtraEntity.getCantidadHoras()+1);
-                horaExtraEntity.setCantidadMinutos(horaExtraEntity.getCantidadMinutos()-60);
-            }
-            horaExtraRepository.save(horaExtraEntity);
-        }
-        else{
-            HoraExtraEntity descuentoEntity = new HoraExtraEntity(null,rut,marcaHora,marcaMinuto,0);
-            horaExtraRepository.save(descuentoEntity);
-        }
-    }
-    
-    public void cambiarHorasExtra(Integer marcaHora, Integer marcaMinuto, String rut){
+    public HoraExtraEntity cambiarHorasExtra(Integer marcaHora, Integer marcaMinuto, HoraExtraEntity horaExtra){
         if(marcaHora==horaSalida && marcaMinuto>0){
-            cambiarHoras(rut,marcaHora,marcaMinuto);
+            horaExtra=cambiarHoras(horaExtra,marcaHora,marcaMinuto);
+            return horaExtra;
         }
         if(marcaHora>horaSalida){
-            cambiarHoras(rut,marcaHora,marcaMinuto);
+            horaExtra=cambiarHoras(horaExtra,marcaHora,marcaMinuto);
+            return horaExtra;
         }
+        return horaExtra;
     }
 }

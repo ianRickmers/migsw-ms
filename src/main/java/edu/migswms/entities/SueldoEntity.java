@@ -20,6 +20,7 @@ public class SueldoEntity{
     private String rut;
     private String nombres;
     private String apellidos;
+    private String categoria;
     private Integer anosServicio;
     private Integer sueldoFijo;
     private Integer bonificacionAnosServicio;

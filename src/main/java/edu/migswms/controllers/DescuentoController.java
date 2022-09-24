@@ -3,10 +3,11 @@ package edu.migswms.controllers;
 import edu.migswms.entities.DescuentoEntity;
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.entities.MarcaEntity;
+import edu.migswms.repositories.DescuentoRepository;
+import edu.migswms.repositories.EmpleadoRepository;
+import edu.migswms.repositories.MarcaRepository;
 import edu.migswms.services.DescuentoService;
-import edu.migswms.services.EmpleadoService;
 import edu.migswms.services.InasistenciaService;
-import edu.migswms.services.MarcaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +22,13 @@ import java.util.ArrayList;
 public class DescuentoController {
 
     @Autowired
-    EmpleadoService empleadoService;
+    DescuentoRepository descuentoRepository;
 
     @Autowired
-    MarcaService marcaService;
+    EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    MarcaRepository marcaRepository;
 
     @Autowired
     DescuentoService descuentoService;
@@ -34,16 +38,26 @@ public class DescuentoController {
 
     @GetMapping("/upload")
     public String calcularDescuentos(){
-        descuentoService.resetearDescuentos();
-        ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
+        descuentoRepository.deleteAll();
+        ArrayList<EmpleadoEntity>empleados=(ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
         for(EmpleadoEntity empleado:empleados){
             String rut=empleado.getRut();
-            ArrayList<MarcaEntity>marcasRut=marcaService.obtenerMarcaPorRut(rut);
+            ArrayList<MarcaEntity>marcasRut=marcaRepository.findByRut(rut);
             int n = marcasRut.size();
             for(int i=0;i<n;i+=2){
                 int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
                 int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
-                descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,rut);
+                ArrayList<DescuentoEntity>descuentos=descuentoRepository.findByRut(rut);
+                if(descuentos.size()!=0){
+                    DescuentoEntity descuento=descuentos.get(0);
+                    descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,descuento);
+                    descuentoRepository.save(descuento);
+                }
+                else{
+                    DescuentoEntity descuento=new DescuentoEntity(null,rut,0,0,0);
+                    descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,descuento);
+                    descuentoRepository.save(descuento);
+                }
                 if(!inasistenciaService.existe(rut, (marcasRut.get(i)).getFecha()))
                     inasistenciaService.crearInasistencia( marcaHora, marcaMinuto, rut, (marcasRut.get(i)));
                 }
@@ -53,7 +67,7 @@ public class DescuentoController {
     
     @GetMapping("/listar")
         public String listar(Model model){
-            ArrayList<DescuentoEntity>descuentos=descuentoService.obtenerDescuentos();
+            ArrayList<DescuentoEntity>descuentos=(ArrayList<DescuentoEntity>) descuentoRepository.findAll();
             model.addAttribute("descuentos",descuentos);
 
             return "descuento/listar";

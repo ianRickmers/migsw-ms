@@ -5,8 +5,9 @@ import edu.migswms.services.HoraExtraService;
 import edu.migswms.services.UploadService;
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.entities.MarcaEntity;
-import edu.migswms.services.EmpleadoService;
-import edu.migswms.services.MarcaService;
+import edu.migswms.repositories.EmpleadoRepository;
+import edu.migswms.repositories.HoraExtraRepository;
+import edu.migswms.repositories.MarcaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,17 +32,20 @@ public class HoraExtraController {
     HoraExtraService horaExtraService;
 
     @Autowired
-    EmpleadoService empleadoService;
+    HoraExtraRepository horaExtraRepository;
 
     @Autowired
-    MarcaService marcaService;
+    EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    MarcaRepository marcaRepository;
 
     @Autowired
     private UploadService upload;
 
     @GetMapping("/listar")
     public String listar(Model model){
-        List<HoraExtraEntity>horasExtras=horaExtraService.obtenerHorasExtras();
+        List<HoraExtraEntity>horasExtras=horaExtraRepository.findAll();
         model.addAttribute("horasExtras",horasExtras);
         return "hora_extra/listar";
     }
@@ -54,13 +58,13 @@ public class HoraExtraController {
 
     @PostMapping("/guardar")
     public String crear(HoraExtraEntity horaExtra){
-        horaExtraService.guardarHoraExtra(horaExtra);
+        horaExtraRepository.save(horaExtra);
         return "redirect:/horas_extras/listar";
     }
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable long id, Model model){
-        Optional<HoraExtraEntity> horaExtra=horaExtraService.obtenerPorId(id);
+        Optional<HoraExtraEntity> horaExtra=horaExtraRepository.findById(id);
         model.addAttribute("horaExtra",horaExtra);
         return "hora_extra/form";
 
@@ -68,7 +72,7 @@ public class HoraExtraController {
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable long id){
-        horaExtraService.eliminarHoraExtra(id);
+        horaExtraRepository.deleteById(id);
         return "redirect:/horas_extras/listar";
     }
 
@@ -86,16 +90,18 @@ public class HoraExtraController {
 
     @GetMapping("/calcular")
     public String calcularDescuentos(){
-        horaExtraService.resetearHorasExtras();
-        ArrayList<EmpleadoEntity>empleados=empleadoService.obtenerEmpleados();
+        horaExtraRepository.deleteAll();
+        ArrayList<EmpleadoEntity>empleados=(ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
         for(EmpleadoEntity empleado:empleados){
             String rut=empleado.getRut();
-            ArrayList<MarcaEntity>marcasRut=marcaService.obtenerMarcaPorRut(rut);
+            ArrayList<MarcaEntity>marcasRut=marcaRepository.findByRut(rut);
             int n = marcasRut.size();
+            HoraExtraEntity horaExtra = new HoraExtraEntity(null,rut,0,0,0);
             for(int i=1;i<n;i+=2){
                 int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
                 int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
-                horaExtraService.cambiarHorasExtra(marcaHora, marcaMinuto,rut);
+                horaExtra=horaExtraService.cambiarHorasExtra(marcaHora, marcaMinuto,horaExtra);
+                horaExtraRepository.save(horaExtra);
                 }
             }
         return("redirect:/");

@@ -1,6 +1,7 @@
 package edu.migswms.controllers;
 
 import edu.migswms.entities.MarcaEntity;
+import edu.migswms.repositories.MarcaRepository;
 import edu.migswms.services.MarcaService;
 
 
@@ -20,12 +21,15 @@ import java.util.List;
 public class MarcaController {
 
     @Autowired
+    MarcaRepository marcaRepository;
+
+    @Autowired
     MarcaService marcaService;
 
     @GetMapping("/upload")
     public String upload(RedirectAttributes ms) throws FileNotFoundException, IOException {
         try {
-            marcaService.resetearMarcas();
+            marcaRepository.deleteAll();;
             marcaService.obtenerMarcas();
             ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
             return "redirect:/";
@@ -36,7 +40,7 @@ public class MarcaController {
     }
     @GetMapping("/listar")
     public String listar(Model model){
-        List<MarcaEntity>marcas=marcaService.obtenerMarca();
+        List<MarcaEntity>marcas=marcaRepository.findAll();
         model.addAttribute("marcas",marcas);
         return "marca/listar";
     }
