@@ -17,7 +17,7 @@ import edu.migswms.entities.SueldoEntity;
 public class SueldoService {
 
 
-    public Integer calcularSueldoBase(EmpleadoEntity empleado, SueldoEntity sueldo) {
+    public Integer calcularSueldoBase(EmpleadoEntity empleado) {
         String categoria = empleado.getCategoria();
         Integer sueldoBase = 0;
         if (categoria.equals("A")) {
@@ -34,11 +34,10 @@ public class SueldoService {
     }
 
     // Calcula la bonificacion por antiguedad de un empleado
-    public ArrayList<Integer> calcularBonificacionTiempoServicio(EmpleadoEntity empleado, SueldoEntity sueldo)
+    public ArrayList<Integer> calcularBonificacionTiempoServicio(EmpleadoEntity empleado, SueldoEntity sueldo, Date fechaActual)
             throws ParseException {
         Integer bonificacion = 0;
         ArrayList<Integer> anosAndBono = new ArrayList<>();
-        Date fechaActual = new Date();
         Date fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").parse(empleado.getFechaIngreso());
         Integer diff = (int) ((TimeUnit.DAYS.convert((fechaActual.getTime() - fechaIngreso.getTime()),
                 TimeUnit.MILLISECONDS)) / 365);
@@ -76,13 +75,13 @@ public class SueldoService {
         return anosAndBono;
     }
 
-    public SueldoEntity montoHorasExtra(EmpleadoEntity empleado, HoraExtraEntity horaExtra, SueldoEntity sueldo) {
+    public SueldoEntity montoHorasExtra( HoraExtraEntity horaExtra, SueldoEntity sueldo) {
         if (horaExtra.getAutorizada() == 0) {
             sueldo.setMontoHorasExtra(0);
             return sueldo;
         }
         if (horaExtra.getAutorizada() == 1) {
-            String categoria = empleado.getCategoria();
+            String categoria = sueldo.getCategoria();
             if (categoria.equals("A")) {
                 sueldo.setMontoHorasExtra(horaExtra.getCantidadHoras() * 25000);
                 return sueldo;

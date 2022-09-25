@@ -2,9 +2,11 @@ package edu.migswms.controllers;
 
 import edu.migswms.entities.DescuentoEntity;
 import edu.migswms.entities.EmpleadoEntity;
+import edu.migswms.entities.InasistenciaEntity;
 import edu.migswms.entities.MarcaEntity;
 import edu.migswms.repositories.DescuentoRepository;
 import edu.migswms.repositories.EmpleadoRepository;
+import edu.migswms.repositories.InasistenciaRepository;
 import edu.migswms.repositories.MarcaRepository;
 import edu.migswms.services.DescuentoService;
 import edu.migswms.services.InasistenciaService;
@@ -26,6 +28,9 @@ public class DescuentoController {
 
     @Autowired
     EmpleadoRepository empleadoRepository;
+
+    @Autowired
+    InasistenciaRepository inasistenciaRepository;
 
     @Autowired
     MarcaRepository marcaRepository;
@@ -58,10 +63,12 @@ public class DescuentoController {
                     descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,descuento);
                     descuentoRepository.save(descuento);
                 }
-                if(!inasistenciaService.existe(rut, (marcasRut.get(i)).getFecha()))
-                    inasistenciaService.crearInasistencia( marcaHora, marcaMinuto, rut, (marcasRut.get(i)));
+                if(inasistenciaService.seDebeCrearInasistencia(marcaHora, marcaMinuto) && inasistenciaRepository.countByRutAndDate(rut, (marcasRut.get(i).getFecha())) == 0){
+                    InasistenciaEntity inasistenciaEntity=inasistenciaService.crearInasistencia( rut, (marcasRut.get(i).getFecha()));
+                    inasistenciaRepository.save(inasistenciaEntity);
                 }
             }
+        }
         return("redirect:/");
     }
     

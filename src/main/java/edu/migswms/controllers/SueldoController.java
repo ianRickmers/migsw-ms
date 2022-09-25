@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -55,14 +56,15 @@ public class SueldoController {
         for(EmpleadoEntity empleado:empleados){
             String rut=empleado.getRut();
             SueldoEntity sueldo=new SueldoEntity(null,empleado.getRut(),empleado.getNombres(),empleado.getApellidos(),empleado.getCategoria(),0,0,0,0,0,0,0,0,0);
-            sueldo.setSueldoFijo(sueldoService.calcularSueldoBase(empleado,sueldo));
-            ArrayList<Integer> bonoAndSueldo=sueldoService.calcularBonificacionTiempoServicio(empleado, sueldo);
+            sueldo.setSueldoFijo(sueldoService.calcularSueldoBase(empleado));
+            Date fechaActual=new Date();
+            ArrayList<Integer> bonoAndSueldo=sueldoService.calcularBonificacionTiempoServicio(empleado, sueldo, fechaActual);
             sueldo.setAnosServicio(bonoAndSueldo.get(0));
             sueldo.setBonificacionAnosServicio(bonoAndSueldo.get(1));
             ArrayList<HoraExtraEntity> horasExtras= (ArrayList<HoraExtraEntity>) horaExtraRepository.findByRut(rut);
             ArrayList<DescuentoEntity> descuentos= (ArrayList<DescuentoEntity>) descuentoRepository.findByRut(rut);
             if (horasExtras.size()!=0)
-                sueldo=sueldoService.montoHorasExtra(empleado,horasExtras.get(0),sueldo);
+                sueldo=sueldoService.montoHorasExtra(horasExtras.get(0),sueldo);
             if (descuentos.size()!=0)
                 sueldo=sueldoService.montoDescuentos(inasistenciaService.countInasistencias(rut),descuentos.get(0),sueldo);
             sueldo=sueldoService.calcularSueldoNeto(sueldo);

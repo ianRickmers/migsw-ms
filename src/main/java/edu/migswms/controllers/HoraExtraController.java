@@ -2,7 +2,7 @@ package edu.migswms.controllers;
 
 import edu.migswms.entities.HoraExtraEntity;
 import edu.migswms.services.HoraExtraService;
-import edu.migswms.services.UploadService;
+import edu.migswms.UploadHelper;
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.entities.MarcaEntity;
 import edu.migswms.repositories.EmpleadoRepository;
@@ -41,7 +41,7 @@ public class HoraExtraController {
     MarcaRepository marcaRepository;
 
     @Autowired
-    private UploadService upload;
+    private UploadHelper upload;
 
     @GetMapping("/listar")
     public String listar(Model model){
@@ -85,7 +85,7 @@ public class HoraExtraController {
     public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
 		upload.saveAutorizacion(file);
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
-		return "redirect:/hora_extra/upload";
+		return "redirect:/horas_extras/upload";
 	}
 
     @GetMapping("/calcular")

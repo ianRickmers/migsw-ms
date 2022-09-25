@@ -1,4 +1,4 @@
-package edu.migswms.services;
+package edu.migswms;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UploadService {
-	private final Logger logg = LoggerFactory.getLogger(UploadService.class);
+public class UploadHelper {
+	private final Logger logg = LoggerFactory.getLogger(UploadHelper.class);
 	
 	public String saveData(MultipartFile file) {
         String folder="archives/data//";

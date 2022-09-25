@@ -1,7 +1,6 @@
 package edu.migswms.services;
 
 import edu.migswms.entities.InasistenciaEntity;
-import edu.migswms.entities.MarcaEntity;
 import edu.migswms.repositories.InasistenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,24 +11,19 @@ public class InasistenciaService {
     @Autowired
     InasistenciaRepository inasistenciaRepository;
 
-    public Boolean existe(String rut, String fecha){
-        if (inasistenciaRepository.countByRutAndDate(rut,fecha)==0){
-            return false;
-        }
-        else{
+    public boolean seDebeCrearInasistencia(Integer marcaHora, Integer marcaMinuto){
+        if(marcaHora==9 && marcaMinuto>10){
             return true;
         }
+        if(marcaHora>9){
+            return true;
+        }
+        return false;
     }
 
-    public void crearInasistencia(Integer marcaHora, Integer marcaMinuto, String rut, MarcaEntity marca){
-        if(marcaHora==9 && marcaMinuto>10){
-            InasistenciaEntity inasistencia=new InasistenciaEntity(null,rut,(marca).getFecha(),0);
-            inasistenciaRepository.save(inasistencia);
-        }
-        if(marcaHora>9){
-            InasistenciaEntity inasistencia=new InasistenciaEntity(null,rut,(marca).getFecha(),0);
-            inasistenciaRepository.save(inasistencia);
-        }
+    public InasistenciaEntity crearInasistencia( String rut, String fecha){
+            InasistenciaEntity inasistencia=new InasistenciaEntity(null,rut,fecha,0);
+            return inasistencia;
     }
     
 }

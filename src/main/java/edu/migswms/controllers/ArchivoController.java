@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import edu.migswms.services.UploadService;
+import edu.migswms.UploadHelper;
 
 @Controller
 public class ArchivoController {
 	
 	@Autowired
-	private UploadService upload;
+	private UploadHelper upload;
 	
 	@GetMapping("/upload")
 	public String home() {

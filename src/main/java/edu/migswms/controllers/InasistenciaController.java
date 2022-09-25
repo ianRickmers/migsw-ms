@@ -1,8 +1,8 @@
 package edu.migswms.controllers;
 
+import edu.migswms.UploadHelper;
 import edu.migswms.entities.InasistenciaEntity;
 import edu.migswms.repositories.InasistenciaRepository;
-import edu.migswms.services.UploadService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class InasistenciaController {
     InasistenciaRepository inasistenciaRepository;
 
     @Autowired
-	private UploadService upload;
+	private UploadHelper upload;
     
     @GetMapping("/listar")
     public String listar(Model model){
@@ -70,6 +70,6 @@ public class InasistenciaController {
 	public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
 		upload.saveJustificativo(file);
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
-		return "redirect:/inasistencia/upload";
+		return "redirect:/inasistencias/upload";
 	}
 }
