@@ -7,10 +7,7 @@ pipeline {
         stage('Build jar file') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ianRickmers/migsw-ms']]])
-                if (isUnix()) --> sh 'mvn install -DskipTests'
-
-                 else --> bat 'mvn install -DskipTests'
-                
+                sh 'bat install -DskipTests'
             }
         }
         stage('Test') {
