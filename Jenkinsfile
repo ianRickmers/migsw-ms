@@ -7,7 +7,7 @@ pipeline {
         stage('Build jar file') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ianRickmers/migsw-ms']]])
-                sh 'mvn clean install -DskipTests'
+                sh 'mvnw.cmd clean install -DskipTests'
             }
         }
         stage('Test') {
