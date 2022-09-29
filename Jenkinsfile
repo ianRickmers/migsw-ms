@@ -7,28 +7,34 @@ pipeline {
         stage('Build jar file') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ianRickmers/migsw-ms']]])
-                if (isUnix()) {
-                    sh 'mvn install -DskipTests'
-                } else {
-                    bat 'mvn install -DskipTests'
+                script{
+                    if (isUnix()) {
+                        sh 'mvn install -DskipTests'
+                    } else {
+                        bat 'mvn install -DskipTests'
+                    }
                 }
             }
         }
         stage('Test') {
             steps {
-                if (isUnix()) {
-                    sh 'mvn test'
-                } else {
-                    bat 'mvn test'
+                script{
+                    if (isUnix()) {
+                        sh 'mvn test'
+                    } else {
+                        bat 'mvn test'
+                    }
                 }
             }
         }
         stage('Build docker image'){
             steps {
-                if (isUnix()) {
-                    sh 'docker build -t ianrickmers/migsw-ms .'
-                } else {
-                    bat 'docker build -t ianrickmers/migsw-ms .'
+                script{
+                    if (isUnix()) {
+                        sh 'docker build -t ianrickmers/migsw-ms .'
+                    } else {
+                        bat 'docker build -t ianrickmers/migsw-ms .'
+                    }    
                 }
             }
         }
@@ -50,10 +56,12 @@ pipeline {
     }
     post {
 		always {
-			if(isUnix()){
-                sh 'docker logout'
-            } else {
-                bat 'docker logout'
+            script{
+                if (isUnix()) {
+                    sh 'docker logout'
+                } else {
+                    bat 'docker logout'
+                }
             }
 		}
 	}
