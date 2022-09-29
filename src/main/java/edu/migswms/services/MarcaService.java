@@ -35,9 +35,9 @@ public class MarcaService {
             MarcaEntity marca=new MarcaEntity(null, nuevaFecha, horaMinuto[0], horaMinuto[1], datoEntrada[2]);
             return marca;
     }
-
+//migsw-ms//src//main//resources//static//data//data.txt
     public String obtenerMarcas() throws FileNotFoundException, IOException, ParseException{
-        FileReader fr=new FileReader("archives/data/data.txt");
+        FileReader fr=new FileReader("/data.txt");
         BufferedReader br=new BufferedReader(fr);
         String data = "";
         String i;    

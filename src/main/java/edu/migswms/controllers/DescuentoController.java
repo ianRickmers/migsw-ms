@@ -43,6 +43,7 @@ public class DescuentoController {
 
     @GetMapping("/upload")
     public String calcularDescuentos(){
+        System.out.println(System.getProperty("user.dir"));
         descuentoRepository.deleteAll();
         ArrayList<EmpleadoEntity>empleados=(ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
         for(EmpleadoEntity empleado:empleados){

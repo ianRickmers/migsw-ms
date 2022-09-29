@@ -63,7 +63,7 @@ public class InasistenciaController {
 	
 	@GetMapping("/upload")
 	public String home() {
-		return "inasistencia/upload";
+        System.out.println(System.getProperty("user.dir"));return "inasistencia/upload";
 	}
 	
 	@PostMapping("/cargar")

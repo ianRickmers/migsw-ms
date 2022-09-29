@@ -45,6 +45,7 @@ public class HoraExtraController {
 
     @GetMapping("/listar")
     public String listar(Model model){
+        System.out.println(System.getProperty("user.dir"));
         List<HoraExtraEntity>horasExtras=horaExtraRepository.findAll();
         model.addAttribute("horasExtras",horasExtras);
         return "hora_extra/listar";
