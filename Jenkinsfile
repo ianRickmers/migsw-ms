@@ -8,9 +8,9 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ianRickmers/migsw-ms']]])
                 if (isUnix()) {
-                    sh 'mvn clean package'
+                    sh 'mvn install -DskipTests'
                 } else {
-                    bat 'mvn clean package'
+                    bat 'mvn install -DskipTests'
                 }
             }
         }
