@@ -53,6 +53,17 @@ pipeline {
                 }
             }
         }
+        stage('Start container'){
+            steps {
+                script{
+                    if (isUnix()) {
+                        sh 'docker compose up -d'
+                    } else {
+                        bat 'docker compose up -d'
+                    }
+                }
+            }
+        }
     }
     post {
 		always {
