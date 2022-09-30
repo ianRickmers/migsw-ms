@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.text.ParseException;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestPropertySource;
 
 import edu.migswms.entities.MarcaEntity;
 import edu.migswms.services.MarcaService;
 
+@TestPropertySource(locations="classpath:test.properties")
 public class MarcaServiceTest {
     MarcaService marcaService = new MarcaService();
     MarcaEntity marcaEntity = new MarcaEntity();

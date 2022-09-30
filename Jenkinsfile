@@ -16,7 +16,7 @@ pipeline {
                 }
             }
         }
-       /* stage('Test') {
+        stage('Test') {
             steps {
                 script{
                     if (isUnix()) {
@@ -26,7 +26,7 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
         stage('Build docker image'){
             steps {
                 script{

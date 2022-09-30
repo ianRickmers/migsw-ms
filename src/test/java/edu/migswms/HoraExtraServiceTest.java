@@ -1,10 +1,12 @@
 package edu.migswms;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestPropertySource;
 
 import edu.migswms.entities.HoraExtraEntity;
 import edu.migswms.services.HoraExtraService;
 
+@TestPropertySource(locations="classpath:test.properties")
 public class HoraExtraServiceTest {
     HoraExtraService horaExtraService = new HoraExtraService();
     HoraExtraEntity horaExtraEntity = new HoraExtraEntity();

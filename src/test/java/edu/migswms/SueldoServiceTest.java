@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestPropertySource;
 
 import edu.migswms.entities.DescuentoEntity;
 import edu.migswms.entities.EmpleadoEntity;
@@ -13,6 +14,7 @@ import edu.migswms.entities.HoraExtraEntity;
 import edu.migswms.entities.SueldoEntity;
 import edu.migswms.services.SueldoService;
 
+@TestPropertySource(locations="classpath:test.properties")
 public class SueldoServiceTest {
     
     SueldoService sueldoService = new SueldoService();
