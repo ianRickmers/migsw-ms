@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script{
                     if (isUnix()) {
-                        sh 'docker compose up'
+                        sh 'docker-compose up'
                     } else {
                         bat 'docker compose up -d'
                     }
