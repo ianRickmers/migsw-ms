@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage('Push docker image'){
+        /*stage('Push docker image'){
             steps {
                 script{
                     withCredentials([string(credentialsId: 'dckrhubpassword', variable: 'dckpass')]) {
@@ -52,7 +52,7 @@ pipeline {
                         }
                 }
             }
-        }
+        }*/
         stage('Start container'){
             steps {
                 script{
