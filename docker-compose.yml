@@ -15,7 +15,7 @@ services:
     container_name: app-migsw-ms
     image: ianrickmers/migsw-ms
     ports:
-      - '8080:8080'
+      - '8081:8081'
     environment:
       - DB_URL=jdbc:mysql://mysql-db:3306/mueblesstgo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
       - DB_USERNAME=root
