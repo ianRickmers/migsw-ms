@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    triggers {
+        cron '''TZ=Chile/Continental
+        H */1 * * *'''
+    }
     tools{
         maven 'maven'
     }
