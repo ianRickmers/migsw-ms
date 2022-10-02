@@ -65,7 +65,7 @@ pipeline {
             }
         }*/
     }
-    post {
+    /*post {
 		always {
             script{
                 if (isUnix()) {
@@ -75,5 +75,5 @@ pipeline {
                 }
             }
 		}
-	}
+	}*/
 }
