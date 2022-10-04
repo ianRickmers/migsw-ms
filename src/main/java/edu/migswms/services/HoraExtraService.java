@@ -23,7 +23,7 @@ public class HoraExtraService {
     }
     
     public HoraExtraEntity cambiarHorasExtra(Integer marcaHora, Integer marcaMinuto, HoraExtraEntity horaExtra){
-        if(marcaHora==horaSalida && marcaMinuto>0){
+        if(marcaHora.equals(horaSalida) && marcaMinuto>0){
             horaExtra=cambiarHoras(horaExtra,marcaHora,marcaMinuto);
             return horaExtra;
         }

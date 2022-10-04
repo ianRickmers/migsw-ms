@@ -1,13 +1,10 @@
 package edu.migswms.services;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
 import org.springframework.stereotype.Service;
-
 import edu.migswms.entities.DescuentoEntity;
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.entities.HoraExtraEntity;

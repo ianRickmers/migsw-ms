@@ -12,18 +12,14 @@ public class InasistenciaService {
     InasistenciaRepository inasistenciaRepository;
 
     public boolean seDebeCrearInasistencia(Integer marcaHora, Integer marcaMinuto){
-        if(marcaHora==9 && marcaMinuto>10){
-            return true;
-        }
-        if(marcaHora>9){
+        if(marcaHora==9 && marcaMinuto>10 || marcaHora>9){
             return true;
         }
         return false;
     }
 
     public InasistenciaEntity crearInasistencia( String rut, String fecha){
-            InasistenciaEntity inasistencia=new InasistenciaEntity(null,rut,fecha,0);
-            return inasistencia;
+            return new InasistenciaEntity(null,rut,fecha,0);
     }
     
 }

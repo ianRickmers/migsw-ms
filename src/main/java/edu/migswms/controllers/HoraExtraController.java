@@ -45,7 +45,6 @@ public class HoraExtraController {
 
     @GetMapping("/listar")
     public String listar(Model model){
-        System.out.println(System.getProperty("user.dir"));
         List<HoraExtraEntity>horasExtras=horaExtraRepository.findAll();
         model.addAttribute("horasExtras",horasExtras);
         return "hora_extra/listar";
@@ -84,7 +83,7 @@ public class HoraExtraController {
 
     @PostMapping("/cargar")
     public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
-		upload.saveAutorizacion(file);
+		upload.saveData(file);
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
 		return "redirect:/horas_extras/upload";
 	}

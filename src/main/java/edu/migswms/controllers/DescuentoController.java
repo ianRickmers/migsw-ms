@@ -43,7 +43,6 @@ public class DescuentoController {
 
     @GetMapping("/upload")
     public String calcularDescuentos(){
-        System.out.println(System.getProperty("user.dir"));
         descuentoRepository.deleteAll();
         ArrayList<EmpleadoEntity>empleados=(ArrayList<EmpleadoEntity>) empleadoRepository.findAll();
         for(EmpleadoEntity empleado:empleados){
@@ -54,7 +53,7 @@ public class DescuentoController {
                 int marcaHora=Integer.parseInt((marcasRut.get(i)).getHora());
                 int marcaMinuto=Integer.parseInt((marcasRut.get(i)).getMinuto());
                 ArrayList<DescuentoEntity>descuentos=descuentoRepository.findByRut(rut);
-                if(descuentos.size()!=0){
+                if(!descuentos.isEmpty()){
                     DescuentoEntity descuento=descuentos.get(0);
                     descuentoService.cambiarDescuentos(marcaHora, marcaMinuto,descuento);
                     descuentoRepository.save(descuento);

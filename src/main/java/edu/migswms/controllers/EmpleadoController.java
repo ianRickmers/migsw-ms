@@ -1,6 +1,5 @@
 package edu.migswms.controllers;
 
-
 import edu.migswms.entities.EmpleadoEntity;
 import edu.migswms.repositories.EmpleadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

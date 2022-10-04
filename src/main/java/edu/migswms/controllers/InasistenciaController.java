@@ -63,12 +63,12 @@ public class InasistenciaController {
 	
 	@GetMapping("/upload")
 	public String home() {
-        System.out.println(System.getProperty("user.dir"));return "inasistencia/upload";
+        return "inasistencia/upload";
 	}
 	
 	@PostMapping("/cargar")
 	public String carga( @RequestParam("archivos") MultipartFile file, RedirectAttributes ms) {
-		upload.saveJustificativo(file);
+		upload.saveData(file);
 		ms.addFlashAttribute("mensaje", "Archivo guardado correctamente");
 		return "redirect:/inasistencias/upload";
 	}

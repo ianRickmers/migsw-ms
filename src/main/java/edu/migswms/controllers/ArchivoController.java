@@ -18,7 +18,7 @@ public class ArchivoController {
 	
 	@GetMapping("/upload")
 	public String home() {
-		System.out.println(System.getProperty("user.dir"));return "upload";
+		return "upload";
 	}
 	
 	@PostMapping("/cargar")

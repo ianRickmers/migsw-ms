@@ -61,11 +61,11 @@ public class SueldoController {
             ArrayList<Integer> bonoAndSueldo=sueldoService.calcularBonificacionTiempoServicio(empleado, sueldo, fechaActual);
             sueldo.setAnosServicio(bonoAndSueldo.get(0));
             sueldo.setBonificacionAnosServicio(bonoAndSueldo.get(1));
-            ArrayList<HoraExtraEntity> horasExtras= (ArrayList<HoraExtraEntity>) horaExtraRepository.findByRut(rut);
-            ArrayList<DescuentoEntity> descuentos= (ArrayList<DescuentoEntity>) descuentoRepository.findByRut(rut);
-            if (horasExtras.size()!=0)
+            ArrayList<HoraExtraEntity> horasExtras= horaExtraRepository.findByRut(rut);
+            ArrayList<DescuentoEntity> descuentos= descuentoRepository.findByRut(rut);
+            if (!horasExtras.isEmpty())
                 sueldo=sueldoService.montoHorasExtra(horasExtras.get(0),sueldo);
-            if (descuentos.size()!=0)
+            if (!descuentos.isEmpty())
                 sueldo=sueldoService.montoDescuentos(inasistenciaService.countInasistencias(rut),descuentos.get(0),sueldo);
             sueldo=sueldoService.calcularSueldoNeto(sueldo);
             sueldo=sueldoService.calcularCotizacionPrevisional(sueldo);
