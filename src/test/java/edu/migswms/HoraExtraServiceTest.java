@@ -1,5 +1,7 @@
 package edu.migswms;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.TestPropertySource;
 
@@ -7,7 +9,7 @@ import edu.migswms.entities.HoraExtraEntity;
 import edu.migswms.services.HoraExtraService;
 
 @TestPropertySource(locations="classpath:test.properties")
-public class HoraExtraServiceTest {
+class HoraExtraServiceTest {
     HoraExtraService horaExtraService = new HoraExtraService();
     HoraExtraEntity horaExtraEntity = new HoraExtraEntity();
 
@@ -18,10 +20,12 @@ public class HoraExtraServiceTest {
         horaExtraEntity.setCantidadMinutos(50);
         horaExtraEntity.setAutorizada(0);
         horaExtraEntity = horaExtraService.cambiarHoras(horaExtraEntity, 19, 30);
-        assert(horaExtraEntity.getCantidadHoras() == 23 && horaExtraEntity.getCantidadMinutos() == 20);
+        assertEquals(23, horaExtraEntity.getCantidadHoras());
+        assertEquals(20, horaExtraEntity.getCantidadMinutos());
 
         horaExtraEntity = horaExtraService.cambiarHoras(horaExtraEntity, 19, 30);
-        assert(horaExtraEntity.getCantidadHoras() == 24 && horaExtraEntity.getCantidadMinutos() == 50);
+        assertEquals(24, horaExtraEntity.getCantidadHoras());
+        assertEquals(50, horaExtraEntity.getCantidadMinutos());
     }
 
     @Test
@@ -31,13 +35,17 @@ public class HoraExtraServiceTest {
         horaExtraEntity.setCantidadMinutos(50);
         horaExtraEntity.setAutorizada(0);
         horaExtraEntity = horaExtraService.cambiarHorasExtra(18, 0, horaExtraEntity);
-        assert(horaExtraEntity.getCantidadHoras() == 21 && horaExtraEntity.getCantidadMinutos() == 50);
+        assertEquals(21, horaExtraEntity.getCantidadHoras());
+        assertEquals(50, horaExtraEntity.getCantidadMinutos());
 
         horaExtraEntity = horaExtraService.cambiarHorasExtra(18, 10, horaExtraEntity);
-        assert(horaExtraEntity.getCantidadHoras() == 22 && horaExtraEntity.getCantidadMinutos() == 0);
+        assertEquals(22, horaExtraEntity.getCantidadHoras());
+        assertEquals(0, horaExtraEntity.getCantidadMinutos());
 
         horaExtraEntity = horaExtraService.cambiarHorasExtra(19, 10, horaExtraEntity);
-        assert(horaExtraEntity.getCantidadHoras() == 23 && horaExtraEntity.getCantidadMinutos() ==10);
+        assertEquals(23, horaExtraEntity.getCantidadHoras());
+        assertEquals(10, horaExtraEntity.getCantidadMinutos());
+
     }
     
 }

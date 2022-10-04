@@ -11,7 +11,7 @@ import edu.migswms.entities.MarcaEntity;
 import edu.migswms.services.MarcaService;
 
 @TestPropertySource(locations="classpath:test.properties")
-public class MarcaServiceTest {
+class MarcaServiceTest {
     MarcaService marcaService = new MarcaService();
     MarcaEntity marcaEntity = new MarcaEntity();
 
